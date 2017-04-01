@@ -1,28 +1,26 @@
 class System
-
+#------------class--------------------
   @@systems = []
 
   def self.system_create
     @@system.push(System.new)
   end
 
-  def self.system_total_mass
-
+  def self.universe_total_mass
+    @@system.map(&:system_total_mass).sum
   end
-
+#------------instance----------------
   attr_reader : body
-  def initialize(argument)
-    @argument = argument
+  def initialize
+    @bodies = []
   end
-
-  @bodies = []
 
   def body_create
-    @@bodies.push(Body.new(name,mass))
+    @bodies.push(Body.new(name,mass))
   end
 
-  def total_mass
-    @bodies.map(&:  ).sum
+  def system_total_mass
+    @bodies.map(&:mass).sum
   end
 
 end
@@ -34,7 +32,6 @@ class Body
   def initialize(name, mass)
     @name = name
     @mass = mass
-
   end
 
 end
