@@ -10,17 +10,29 @@ class System
     @@system.map(&:system_total_mass).sum
   end
 #------------instance----------------
-  attr_reader : body
+  attr_reader :bodies
   def initialize
     @bodies = []
+    @names = []
   end
 
-  def body_create
+  def body_create(name,mass)
+
+    if @names.include?(name)
+      puts "#{name} already existed"
+    else
     @bodies.push(Body.new(name,mass))
+    @names.push(name)
+    end
+
   end
 
   def system_total_mass
     @bodies.map(&:mass).sum
+  end
+
+  def all_bodies
+    @bodies
   end
 
 end
@@ -28,7 +40,6 @@ end
 class Body
 
   attr_reader :name, :mass
-
   def initialize(name, mass)
     @name = name
     @mass = mass
@@ -50,7 +61,6 @@ class Star < Body
   def initialize(name,mass,type)
     super(name,mass,type)
     @type = type
-
   end
 
 end
@@ -61,6 +71,5 @@ class Moon < Body
     @month = month
     @planet = planet
   end
-
 
 end
